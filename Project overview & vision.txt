@@ -1,0 +1,47 @@
+1.Vision: Esta NFT Infra is designed to provide a clean, scalable, and secure NFT infrastructure for creators and developers. This project showcases my ability to build end-to-end NFT solutions 
+from smart contract development to frontend integration.
+
+
+2. Features
+
+
+Secure ERC-721 contract with OpenZeppelin
+
+Batch minting support
+
+React-based mint UI
+
+Easy deployment with Hardhat
+
+Clear and detailed logging during deployment
+
+User-friendly status updates in frontend
+
+
+3. Tech Stack
+
+Ye section tumhare skills highlight karega.
+Example:
+
+Smart Contracts: Solidity, OpenZeppelin
+
+Blockchain Tools: Hardhat, Ethers.js
+
+Frontend: React, JavaScript
+
+Deployment: Infura / Alchemy
+
+Version Control: Git & GitHub
+
+
+5. Future Improvements
+
+IPFS integration for metadata hosting
+
+ERC-1155 support
+
+Multi-network deployment
+
+Automated frontend build pipeline
+
+NFT marketplace integration

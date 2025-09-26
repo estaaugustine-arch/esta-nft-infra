@@ -1,0 +1,52 @@
+import React, { useState } from "react";
+import { ethers } from "ethers";
+import MyNFTABI from "./MyNFT.json"; // Contract ABI file
+
+// 📌 Replace with your deployed contract address after deploy
+const CONTRACT_ADDRESS = "PASTE_YOUR_DEPLOYED_ADDRESS";
+
+export default function App() {
+  const [metadataURI, setMetadataURI] = useState("");
+  const [statusMessage, setStatusMessage] = useState("");
+
+  // Mint function: Connect wallet, call contract, mint NFT
+  async function handleMint() {
+    try {
+      if (!window.ethereum) {
+        setStatusMessage("⚠️ Please install MetaMask to continue.");
+        return;
+      }
+
+      setStatusMessage("🔗 Connecting to wallet...");
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
+
+      const signer = await provider.getSigner();
+      const contract = new ethers.Contract(CONTRACT_ADDRESS, MyNFTABI, signer);
+
+      setStatusMessage("⏳ Minting your NFT... Please wait.");
+      const tx = await contract.mint(await signer.getAddress(), metadataURI);
+
+      setStatusMessage(`⛓ Transaction sent! Tx Hash: ${tx.hash}`);
+      await tx.wait();
+
+      setStatusMessage(`✅ NFT minted successfully! Tx confirmed: ${tx.hash}`);
+    } catch (error) {
+      console.error("Minting error:", error);
+      setStatusMessage(`❌ Error: ${error.message || error}`);
+    }
+  }
+
+  return (
+    <div style={styles.container}>
+      <h1 style={styles.header}>🎨 Demo NFT Minting App</h1>
+      <p style={styles.description}>
+        This is a simple interface to mint your own ERC-721 NFT. Connect your wallet, enter metadata URI, and click Mint.
+      </p>
+
+      <input
+        style={styles.input}
+        type="text"
+        value={metadataURI}
+        onChange={(e) => setMetadataURI(e.target.value)}
+        placeholder="Enter me

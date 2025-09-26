@@ -1,0 +1,34 @@
+
+
+async function main() {
+  console.log("🚀 Starting deployment...");
+
+  // Get the account that will deploy the contract
+  const [deployer] = await ethers.getSigners();
+  console.log("📌 Deploying with account:", deployer.address);
+
+  // Show balance for transparency
+  const balance = await deployer.getBalance();
+  console.log("💰 Account balance:", ethers.formatEther(balance), "ETH");
+
+  // Get the NFT contract factory
+  const NFT = await ethers.getContractFactory("MyNFT");
+
+  console.log("🛠 Deploying the MyNFT contract...");
+  const nft = await NFT.deploy("Demo NFT Collection", "DNFT");
+
+  // Wait for deployment to be mined
+  await nft.deployed();
+
+  console.log("✅ MyNFT deployed successfully!");
+  console.log("📍 Contract address:", nft.address);
+
+  console.log("\n🎯 Next step: Verify contract on Etherscan and set up frontend.");
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch(error => {
+    console.error("❌ Deployment failed:", error);
+    process.exit(1);
+  });
